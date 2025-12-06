@@ -1,5 +1,5 @@
 {
-  "name": "cursor-magic",
+  "name": "@andriish/cursor-magic",
   "version": "1.0.0",
   "description": "One-command setup for autonomous Cursor AI agent - maximum productivity with minimal config",
   "main": "lib/index.js",

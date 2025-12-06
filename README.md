@@ -2,21 +2,23 @@
 
 One-command setup for autonomous Cursor AI agent. Maximum productivity with minimal config.
 
+[![npm version](https://badge.fury.io/js/@andriish%2Fcursor-magic.svg)](https://www.npmjs.com/package/@andriish/cursor-magic)
+
 ## Quick Install
 
-### Option 1: Shell Script (Recommended)
+### Option 1: NPX (Recommended)
+```bash
+npx @andriish/cursor-magic
+```
+
+### Option 2: Shell Script
 ```bash
 curl -fsSL https://raw.githubusercontent.com/ashchupliak/cursor-magic/main/install.sh | bash
 ```
 
-### Option 2: NPX (Node.js required)
-```bash
-npx cursor-magic
-```
-
 ### Option 3: NPM Global Install
 ```bash
-npm install -g cursor-magic
+npm install -g @andriish/cursor-magic
 ```
 
 After installation, reload your shell:
@@ -122,7 +124,7 @@ Deny: rm -rf /, sudo, production deploy, .env modification
 To install rules for a specific project:
 
 ```bash
-npx cursor-magic install --project
+npx @andriish/cursor-magic install --project
 ```
 
 This creates `.cursor/rules/` in your current directory.
@@ -130,7 +132,7 @@ This creates `.cursor/rules/` in your current directory.
 ## Uninstall
 
 ```bash
-npx cursor-magic uninstall
+npx @andriish/cursor-magic uninstall
 ```
 
 ## How Parallel Agents Work
@@ -146,6 +148,21 @@ npx cursor-magic uninstall
 - 3-4 agents comfortable on 32GB RAM
 - Up to 8 agents supported by Cursor 2.0
 - Each agent should work on separate branch
+
+## Share With Your Team
+
+```
+Install Cursor Magic:
+  npx @andriish/cursor-magic
+
+Then reload shell:
+  source ~/.zshrc
+
+Commands:
+  cursor-auto "your task"           # Main command
+  cursor-parallel-tasks t1 t2 t3    # Run multiple in parallel
+  cursor-help                       # See all commands
+```
 
 ## Contributing
 
