@@ -1,0 +1,51 @@
+---
+description: Session continuity and handoffs
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# Session Coordination
+
+## State Tracking
+
+Maintain awareness of:
+```
+FEATURE: [current feature/task name]
+BRANCH: [git branch if applicable]
+STATUS: planning | implementing | testing | debugging | done
+PROGRESS:
+  - [x] completed items
+  - [ ] remaining items
+```
+
+## Checkpoint Triggers
+
+Create mental/actual checkpoints:
+- Before major refactoring
+- After completing a logical unit
+- Before switching context
+- When tests pass after changes
+
+## Handoff Protocol
+
+When ending session or switching tasks, note:
+1. What was accomplished
+2. Current state (working/broken/partial)
+3. Immediate next step
+4. Any blockers or concerns
+
+## Recovery Protocol
+
+When resuming work:
+1. Check git status for uncommitted changes
+2. Review recent file modifications
+3. Run tests to verify current state
+4. Continue from documented next step
+
+## Progress Indicators
+
+Use git commits as progress markers:
+- `wip: [description]` for work in progress
+- `feat: [description]` for completed features
+- `fix: [description]` for bug fixes
+- `refactor: [description]` for refactoring

@@ -1,0 +1,17 @@
+{
+  "setup-worktree-unix": [
+    "echo 'Setting up worktree environment...'",
+    "[ -f package.json ] && npm ci --silent || true",
+    "[ -f pnpm-lock.yaml ] && pnpm install --silent || true",
+    "[ -f yarn.lock ] && yarn install --silent || true",
+    "[ -f requirements.txt ] && pip install -r requirements.txt -q || true",
+    "[ -f .env.example ] && cp .env.example .env 2>/dev/null || true",
+    "echo 'Worktree ready!'"
+  ],
+  "setup-worktree-windows": [
+    "echo Setting up worktree environment...",
+    "if exist package.json npm ci --silent",
+    "if exist requirements.txt pip install -r requirements.txt -q",
+    "echo Worktree ready!"
+  ]
+}

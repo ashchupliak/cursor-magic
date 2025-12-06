@@ -1,0 +1,43 @@
+---
+description: Code quality and best practices
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# Coding Standards
+
+## Code Quality
+
+- Early returns over nested conditionals
+- Descriptive names: `isLoading`, `hasPermission`, `canEdit`
+- Single responsibility per function
+- Explicit error handling with context
+- Immutable data patterns where possible
+
+## Security
+
+- Validate all user input
+- Never hardcode secrets
+- Sanitize before database queries
+- Use parameterized queries
+
+## Performance
+
+- Measure before optimizing
+- Use appropriate data structures
+- Avoid premature abstraction
+- Cache expensive computations
+
+## Testing
+
+- Write tests for new functionality
+- Verify edge cases
+- Test error paths
+- Keep tests focused and fast
+
+## Documentation
+
+- Comment the "why", not the "what"
+- Update docs with code changes
+- Remove stale comments
+- Self-documenting code preferred

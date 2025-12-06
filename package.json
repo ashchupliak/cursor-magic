@@ -1,0 +1,37 @@
+{
+  "name": "cursor-magic",
+  "version": "1.0.0",
+  "description": "One-command setup for autonomous Cursor AI agent - maximum productivity with minimal config",
+  "main": "lib/index.js",
+  "bin": {
+    "cursor-magic": "./bin/cursor-magic.js"
+  },
+  "scripts": {
+    "postinstall": "node bin/cursor-magic.js install --silent || true"
+  },
+  "keywords": [
+    "cursor",
+    "ai",
+    "agent",
+    "autonomous",
+    "coding",
+    "cli",
+    "productivity"
+  ],
+  "author": "ashchupliak",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ashchupliak/cursor-magic.git"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "rules",
+    "templates",
+    "install.sh"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

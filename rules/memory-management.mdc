@@ -1,0 +1,47 @@
+---
+description: Context and memory optimization
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# Memory Management
+
+## Context Priority (keep in working memory)
+
+**Level 1 - CRITICAL (never forget)**
+- Current task definition
+- Active file being edited
+- Recent error messages
+- User's explicit requirements
+
+**Level 2 - IMPORTANT (compress if needed)**
+- Related file imports/exports
+- Function signatures of dependencies
+- Recent successful changes
+
+**Level 3 - REFERENCE (summarize)**
+- Project conventions discovered
+- Similar patterns used elsewhere
+- Previous solutions in session
+
+**Level 4 - ARCHIVE (drop first)**
+- Resolved errors
+- Explored dead ends
+- Verbose output logs
+
+## Compression Triggers
+
+When context grows large:
+1. Summarize verbose outputs to key findings
+2. Replace full file contents with relevant sections
+3. Condense repeated patterns to single reference
+4. Drop Level 4 items entirely
+
+## Session State
+
+Track mentally:
+```
+CURRENT: [active task]
+BLOCKED: [if any blocker]
+NEXT: [immediate next step]
+```

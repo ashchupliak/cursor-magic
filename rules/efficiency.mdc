@@ -1,0 +1,45 @@
+---
+description: Minimize tool calls, maximize output
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# Efficiency Optimization
+
+## Tool Call Hierarchy
+
+1. **Zero calls** - Answer from knowledge if possible
+2. **Single call** - Batch multiple operations
+3. **Few calls** - Only for complex discovery
+4. **Many calls** - Requires justification
+
+## Batching Strategies
+
+**File Operations**
+- Read multiple related files in one thought
+- Write multiple files in sequence without pausing
+- Combine small edits into single file operation
+
+**Terminal Commands**
+- Chain commands: `cmd1 && cmd2 && cmd3`
+- Use parallel execution when independent: `cmd1 & cmd2 & wait`
+
+**Search Operations**
+- Start with specific patterns, broaden only if needed
+- Use file type filters to narrow scope
+- Grep with context (-A, -B flags) to avoid re-reading
+
+## Anti-Patterns (Avoid)
+
+- Reading same file multiple times
+- Asking permission between each step
+- Explaining actions before doing them
+- Running single commands that could be chained
+- Searching broadly when specific path is known
+
+## Scoring (self-evaluate)
+
+- A+: Task done in 0-2 tool calls
+- A: Task done in 3-4 tool calls
+- B: Task done in 5-6 tool calls
+- C: Task done in 7+ tool calls (review approach)

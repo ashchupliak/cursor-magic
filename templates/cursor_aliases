@@ -1,0 +1,210 @@
+# ══════════════════════════════════════════════════════════════════════════════
+# CURSOR MAGIC - CLI COMMANDS
+# ══════════════════════════════════════════════════════════════════════════════
+# Installed by: https://github.com/ashchupliak/cursor-magic
+# Reload with: source ~/.zshrc
+
+# ══════════════════════════════════════════════════════════════════════════════
+# SINGLE AGENT - AUTONOMOUS MODE
+# ══════════════════════════════════════════════════════════════════════════════
+
+cursor-auto() {
+    cursor agent -f "$@"
+}
+
+cursor-auto-browser() {
+    cursor agent -f --approve-mcps --browser "$@"
+}
+
+cursor-full-power() {
+    cursor agent -f --approve-mcps --browser "$@"
+}
+
+# ══════════════════════════════════════════════════════════════════════════════
+# SINGLE AGENT - MODEL SELECTION
+# ══════════════════════════════════════════════════════════════════════════════
+
+cursor-with-sonnet() {
+    cursor agent -f --model sonnet-4 "$@"
+}
+
+cursor-with-sonnet-thinking() {
+    cursor agent -f --model sonnet-4-thinking "$@"
+}
+
+cursor-with-opus() {
+    cursor agent -f --model opus-4 "$@"
+}
+
+cursor-with-gpt() {
+    cursor agent -f --model gpt-5 "$@"
+}
+
+# ══════════════════════════════════════════════════════════════════════════════
+# PARALLEL AGENTS - RUN MULTIPLE AT ONCE
+# ══════════════════════════════════════════════════════════════════════════════
+
+cursor-background() {
+    cursor agent -c -f "$@"
+}
+
+cursor-parallel-models() {
+    local task="$1"
+    echo "Launching parallel agents with different models..."
+    cursor agent -f --model sonnet-4 "$task" &
+    cursor agent -f --model gpt-5 "$task" &
+    cursor agent -f --model opus-4 "$task" &
+    wait
+    echo "All agents completed. Review results."
+}
+
+cursor-parallel-tasks() {
+    local i=1
+    for task in "$@"; do
+        echo "Starting agent $i: $task"
+        cursor agent -f "$task" &
+        ((i++))
+    done
+    wait
+    echo "All $# agents completed."
+}
+
+cursor-in-branch() {
+    local branch="$1"
+    shift
+    git worktree add -b "$branch" "../worktree-$branch" 2>/dev/null || true
+    cursor agent -f --workspace "../worktree-$branch" "$@"
+}
+
+cursor-parallel-branches() {
+    local base_branch="feature"
+    local i=1
+    for task in "$@"; do
+        local branch="${base_branch}-agent-$i"
+        echo "Starting agent $i on branch $branch: $task"
+        git worktree add -b "$branch" "../worktree-$branch" 2>/dev/null || true
+        cursor agent -f --workspace "../worktree-$branch" "$task" &
+        ((i++))
+    done
+    wait
+    echo "All agents completed on separate branches."
+}
+
+# ══════════════════════════════════════════════════════════════════════════════
+# SESSION MANAGEMENT
+# ══════════════════════════════════════════════════════════════════════════════
+
+cursor-list-sessions() {
+    cursor agent ls
+}
+
+cursor-resume-last() {
+    cursor agent resume
+}
+
+cursor-resume-session() {
+    cursor agent resume "$1"
+}
+
+cursor-check-status() {
+    cursor agent status
+}
+
+# ══════════════════════════════════════════════════════════════════════════════
+# AUTOMATION / CI MODE
+# ══════════════════════════════════════════════════════════════════════════════
+
+cursor-print-output() {
+    cursor agent -f -p "$@"
+}
+
+cursor-json-output() {
+    cursor agent -f -p --output-format json "$@"
+}
+
+cursor-stream-output() {
+    cursor agent -f -p --output-format stream-json --stream-partial-output "$@"
+}
+
+# ══════════════════════════════════════════════════════════════════════════════
+# MCP SERVERS
+# ══════════════════════════════════════════════════════════════════════════════
+
+cursor-mcp-list() {
+    cursor agent mcp list
+}
+
+cursor-mcp-tools() {
+    cursor agent mcp list-tools "$@"
+}
+
+# ══════════════════════════════════════════════════════════════════════════════
+# WORKSPACE
+# ══════════════════════════════════════════════════════════════════════════════
+
+cursor-in-directory() {
+    local dir="$1"
+    shift
+    cursor agent -f --workspace "$dir" "$@"
+}
+
+# ══════════════════════════════════════════════════════════════════════════════
+# HELP & INFO
+# ══════════════════════════════════════════════════════════════════════════════
+
+cursor-help() {
+    echo "
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                         CURSOR MAGIC COMMANDS                                ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║  SINGLE AGENT                                                                ║
+║    cursor-auto \"task\"              Main autonomous command                   ║
+║    cursor-auto-browser \"task\"      With browser automation                   ║
+║    cursor-full-power \"task\"        All features enabled                      ║
+║                                                                              ║
+║  WITH SPECIFIC MODEL                                                         ║
+║    cursor-with-sonnet \"task\"       Claude Sonnet 4                           ║
+║    cursor-with-sonnet-thinking      Sonnet 4 with extended thinking          ║
+║    cursor-with-opus \"task\"         Claude Opus 4                             ║
+║    cursor-with-gpt \"task\"          GPT-5                                     ║
+║                                                                              ║
+║  PARALLEL AGENTS                                                             ║
+║    cursor-background \"task\"        Launch in cloud, returns immediately      ║
+║    cursor-parallel-models \"task\"   Same task with 3 models, pick best       ║
+║    cursor-parallel-tasks t1 t2 t3  Multiple tasks in parallel               ║
+║    cursor-parallel-branches t1 t2  Each task on separate git branch         ║
+║    cursor-in-branch branch \"task\"  Run in specific branch worktree          ║
+║                                                                              ║
+║  SESSION MANAGEMENT                                                          ║
+║    cursor-list-sessions            List all chat sessions                    ║
+║    cursor-resume-last              Resume most recent session                ║
+║    cursor-resume-session <id>      Resume specific session                   ║
+║    cursor-check-status             Check authentication status               ║
+║                                                                              ║
+║  AUTOMATION / CI                                                             ║
+║    cursor-print-output \"task\"      Output to stdout (for piping)             ║
+║    cursor-json-output \"task\"       JSON formatted output                     ║
+║    cursor-stream-output \"task\"     Streaming JSON output                     ║
+║                                                                              ║
+║  MCP SERVERS                                                                 ║
+║    cursor-mcp-list                 List configured MCP servers               ║
+║    cursor-mcp-tools <server>       List tools for specific MCP               ║
+║                                                                              ║
+║  WORKSPACE                                                                   ║
+║    cursor-in-directory dir \"task\"  Run in specific directory                 ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+  Documentation: https://github.com/ashchupliak/cursor-magic
+"
+}
+
+cursor-info() {
+    echo "=== Cursor Agent Status ==="
+    cursor agent status
+    echo ""
+    echo "=== MCP Servers ==="
+    cursor agent mcp list 2>/dev/null || echo "No MCP servers configured"
+    echo ""
+    echo "=== Recent Sessions ==="
+    cursor agent ls 2>/dev/null | head -10 || echo "No sessions found"
+}

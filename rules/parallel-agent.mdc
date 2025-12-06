@@ -1,0 +1,52 @@
+---
+description: Multi-agent and parallel execution patterns
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# Parallel Agent Coordination
+
+## Branch Strategy
+
+When working as one of multiple agents:
+- Always work on dedicated feature branch
+- Never commit directly to main/master
+- Use naming: `feature/[task-name]` or `agent-[n]/[task-name]`
+
+## Isolation Rules
+
+- Assume other agents may modify shared files
+- Pull latest before starting work
+- Commit frequently with clear messages
+- Resolve conflicts immediately if detected
+
+## Communication via Git
+
+- Use commit messages to document decisions
+- Create PR descriptions that explain approach
+- Reference related PRs if dependent work
+
+## Handoff Format
+
+When completing a task for another agent to review:
+```
+## Summary
+[What was implemented]
+
+## Changes
+- file1.ts: [change description]
+- file2.ts: [change description]
+
+## Testing
+[How to verify]
+
+## Next Steps
+[What remains or depends on this]
+```
+
+## Conflict Prevention
+
+- Claim files at start of task (via commit/comment)
+- Prefer additive changes over modifications
+- Coordinate on shared config files
+- Use feature flags for partial implementations
