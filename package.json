@@ -1,7 +1,7 @@
 {
   "name": "@andriish/cursor-magic",
-  "version": "1.0.0",
-  "description": "One-command setup for autonomous Cursor AI agent - maximum productivity with minimal config",
+  "version": "2.0.0",
+  "description": "One file, maximum effectiveness. Simple Cursor AI rules based on official docs.",
   "main": "lib/index.js",
   "bin": {
     "cursor-magic": "./bin/cursor-magic.js"
@@ -12,10 +12,9 @@
   "keywords": [
     "cursor",
     "ai",
-    "agent",
-    "autonomous",
-    "coding",
-    "cli",
+    "rules",
+    "cursorrules",
+    "simple",
     "productivity"
   ],
   "author": "ashchupliak",
@@ -28,7 +27,6 @@
     "bin",
     "lib",
     "rules",
-    "templates",
     "install.sh"
   ],
   "engines": {
